@@ -16,8 +16,15 @@ const Factory = use('Factory')
 class SuperAdminSeeder {
   async run () {
 
-    let role=await use("App/Models/Role").findBy({"name":"SUPERADMIN"})
-    let reqUser={"firstName":"Super","lastName":"Admin","userType":"SUPERADMIN","email":"admin@mlt.com",'password':"admin@1234","phoneNumber":"","roleId":role._id,'deposite_amount':0,'profite_amount':0}
+    let reqUser={
+      email:"admin@taqa.com",
+      first_name:"Super",
+      last_name:"Admin",
+      phone_number:"7485964160",
+      password:"admin@1234",
+      fcm_token:"122222",
+      user_type:"SUPERADMIN"
+    }
     let user=await use("App/Models/User").findBy({"userType":"SUPERADMIN"})
     if(user==null)
     {

@@ -29,9 +29,10 @@ class OrderController {
           this.checkErrorType(error, response);
         }
     }
-    async fetchUserOrder({params,response }) {
+    async fetchUserOrder({params,response,auth }) {
         try {
-          let result = await Order.query().where({'user_id':params.id}).with('assignDriver').fetch();
+          let authUser=auth.user
+          let result = await Order.query().where({'user_id':authUser._id}).with('assignDriver').fetch();
           response.ok({ success: true, data:result , error: null });
         } catch (error) {
           this.checkErrorType(error, response);
@@ -54,12 +55,17 @@ class OrderController {
     async updateOrder({request,response,auth }) {
         try {
          let requestData=request.body
-         let result = await Order.query().where({ _id: requestData.id }).update(requestData);
+         if(requestData.driver_id)
+         {
+           let driver=await User.findBy({ _id: requestData.driver_id})
+          requestData['driver_id']=driver?._id
+         }
+         let result = await Order.query().where({ _id: requestData._id }).update(requestData);
          if(result.result.nModified != 1){
             this.checkErrorType({code:"CUSTOME",msg:"User Updation failed"},response)
             return
          }
-         result = await Order.query().where({'_id':requestData.id}).with('orderUser').with('assignDriver').fetch();
+         result = await Order.query().where({'_id':requestData._id}).with('orderUser').with('assignDriver').fetch();
          response.ok({ success: true, data:result , error: null });
         } catch (error) {
             this.checkErrorType(error, response);

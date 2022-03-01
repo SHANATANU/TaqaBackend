@@ -41,7 +41,11 @@ Route.group(() => {
   Route.get('fetchAllOrder', 'OrderController.fetchAllOrder')
   Route.get('fetchOrderById/:id', 'OrderController.fetchOrderById')
   Route.post('updateOrder', 'OrderController.updateOrder').middleware('auth')
+  Route.get('fetchUserOrder', 'OrderController.fetchUserOrder').middleware('auth')
 
+
+
+  Route.get('getDashboard', 'DashboardController.getDashboard').middleware('auth')
 
   Route.get('fetchSetting', 'SettingController.fetchSetting')
   Route.post('updateSetting', 'SettingController.updateSetting')

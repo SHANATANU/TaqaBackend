@@ -16,7 +16,9 @@ const Factory = use('Factory')
 class SettingSeeder {
   async run () {
 
-    let reqData={"deliveryStatus":["SCHEDULE","INPROGRESS","PENDING","REJECTED","ACCEPTED","IN THE WAY","DELIVERED"],"financialStatus":[],"deliveryType":[],"vehicleType":[],"deliveryPricePerKm":0.0,"deliveryPricePerMin":0.0,"contantPrice":0.0,"regions":[]}
+    let reqData={
+      "delivery_price":{"per_km":1,"per_min":1},
+    }
     let setting=await use("App/Models/Setting").first()
     if(setting==null)
     {

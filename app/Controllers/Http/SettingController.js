@@ -19,12 +19,13 @@ class SettingController {
     async updateSetting({request,response }) {
         try {
             let requestData=request.body
-            let result = await Setting.query().where({ _id: requestData.id }).update(requestData);
+            let result = await Setting.query().where({ _id: requestData._id }).update(requestData);
             if(result.result.nModified != 1){
               this.checkErrorType({code:"CUSTOME",msg:"Setting Updation failed"},response)
               return
             }
             result = await Setting.findBy({ _id: requestData.id });
+            response.ok({ success: true, data:result , error: null });
         } catch(error) {
             this.checkErrorType(error, response);
         }

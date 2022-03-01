@@ -49,7 +49,7 @@ class UserController {
     async loginUser({ request, response,auth }) {  
         try {
             let requestData=request.body
-            let userObj = await User.findBy({"email":requestData.email,delete_status:false}); 
+            let userObj = await User.findBy({"email":requestData.email}); 
             if(!userObj){
                 this.checkErrorType({code:"CUSTOME",msg:"Invalid email"},response)
                 return
@@ -99,7 +99,7 @@ class UserController {
     async updateUser({request,response,auth }) {
         try { 
           let requestData=request.body
-          let userObj = await User.query().where({ _id: requestData.id }).update(requestData);
+          let userObj = await User.query().where({ _id: requestData._id }).update(requestData);
           if(userObj.result.nModified != 1){
             this.checkErrorType({code:"CUSTOME",msg:"User Updation failed"},response)
             return
