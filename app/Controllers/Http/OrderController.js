@@ -1,5 +1,4 @@
 'use strict'
-
 const User = use("App/Models/User");
 const Order = use("App/Models/Order");
 class OrderController {
