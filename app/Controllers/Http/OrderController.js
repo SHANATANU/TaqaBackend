@@ -57,7 +57,7 @@ class OrderController {
          if(requestData.driver_id)
          {
            let driver=await User.findBy({ _id: requestData.driver_id})
-          requestData['driver_id']=driver?._id
+          requestData['driver_id']=driver._id
          }
          let result = await Order.query().where({ _id: requestData._id }).update(requestData);
          if(result.result.nModified != 1){
