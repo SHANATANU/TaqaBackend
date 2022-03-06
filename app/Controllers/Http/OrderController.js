@@ -38,6 +38,19 @@ class OrderController {
         }
     }
 
+    async fetchDriverOrder({params,response,auth }) {
+      try {
+        let driver_id=params.id
+
+        let authUser=auth.user
+        let result = await Order.query().where({'driver_id':driver_id?driver_id:authUser._id}).with('assignDriver').fetch();
+        response.ok({ success: true, data:result , error: null });
+      } catch (error) {
+        this.checkErrorType(error, response);
+      }
+  }
+
+
     async fetchOrderById({params,response,auth }) {
         try {
           let result =  await Order.query().where({'_id':params.id}).with('orderUser').with('assignDriver').fetch();

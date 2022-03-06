@@ -41,6 +41,8 @@ Route.group(() => {
   Route.get('fetchAllOrder', 'OrderController.fetchAllOrder')
   Route.get('fetchOrderById/:id', 'OrderController.fetchOrderById')
   Route.post('updateOrder', 'OrderController.updateOrder').middleware('auth')
+  Route.get('fetchDriverOrder/:id', 'OrderController.fetchDriverOrder').middleware('auth')
+
   Route.get('fetchUserOrder', 'OrderController.fetchUserOrder').middleware('auth')
 
 
